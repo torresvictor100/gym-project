@@ -31,7 +31,7 @@ public class ClientService {
 	
 	public Client save(Client client) {
 		client.setId(null);
-		return client;
+		return clientRepository.save(client);
 	}
 	
 	public Client update(Client client) {
