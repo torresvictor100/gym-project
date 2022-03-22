@@ -40,7 +40,6 @@ public class ClientServiceTest {
 			Client client = new Client();
 
 			client.setId(null);
-			client.setId(8L);
 			client.setName("test");
 			client.setNumero("8762-9587");
 			client.setDatePagament(10);
@@ -49,6 +48,14 @@ public class ClientServiceTest {
 			
 			System.out.println(client);
 		
+	}
+	
+	@Test
+	public void monthlyFee() {
+		
+		System.out.println(clientService.findById(1L));
+		
+		System.out.println(clientService.monthlyFee(1L));
 	}
 	
 	@Test
@@ -61,8 +68,8 @@ public class ClientServiceTest {
 	
 	@Test
 	public void paymentMonth() {
-		clientService.paymentMonth(1L);
-		Client client = clientService.findById(1L);
+		clientService.paymentMonth(10L);
+		Client client = clientService.findById(10L);
 		System.out.println(client);
 	}
 	

@@ -42,10 +42,10 @@ public class ClientService {
 		int year = dataCal.get(Calendar.YEAR);
 		if(month == 12) {
 			client.setLastMouthPaid(0);
-			client.setcurrentYear(year+1);
+			client.setpaidYear(year+1);
 		}else {
 			client.setLastMouthPaid(month + 1);
-			client.setcurrentYear(year);
+			client.setpaidYear(year);
 		}
 		
 		
@@ -70,6 +70,24 @@ public class ClientService {
 		
 		if (id != null && clientRepository.existsById(id)) {
 			
+			if(currentYear < client.getpaidYear()) {
+				
+				status = "estar pago";
+				
+			}else if(currentMonth < client.getLastMouthPaid() && currentYear <= client.getpaidYear()) {
+				
+				status = "estar pago";
+				
+			}else if (currentDay <= client.getDatePagament() 
+					&& currentMonth <= client.getLastMouthPaid() 
+					&& currentYear <= client.getpaidYear()) {
+				
+				status = "estar pago";
+				
+			}else {
+				
+				status = "não pagou esse mês";
+			}
 			
 			
 			return status;
@@ -86,7 +104,7 @@ public class ClientService {
 			
 			if(client.getLastMouthPaid() == 11) {
 				client.setLastMouthPaid(0);
-				client.setcurrentYear(client.getcurrentYear() +1);
+				client.setpaidYear(client.getpaidYear() +1);
 			}else {
 				client.setLastMouthPaid(client.getLastMouthPaid()+1);
 			}				
@@ -109,7 +127,7 @@ public class ClientService {
 			int year = dataCal.get(Calendar.YEAR);
 			
 			client.setLastMouthPaid(month);
-			client.setcurrentYear(year);
+			client.setpaidYear(year);
 			
 			return clientRepository.save(client);
 		} else {
@@ -127,10 +145,10 @@ public class ClientService {
 			Client clientBeforeUpdate = clientRepository.findById(id).orElse(null); 
 			
 			int month = clientBeforeUpdate.getLastMouthPaid();
-			int year = clientBeforeUpdate.getcurrentYear();
+			int year = clientBeforeUpdate.getpaidYear();
 			
 			client.setLastMouthPaid(month);
-			client.setcurrentYear(year);
+			client.setpaidYear(year);
 			
 			return clientRepository.save(client);
 		} else {

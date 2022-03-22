@@ -36,8 +36,8 @@ public class Client {
 	private Integer lastMouthPaid;
 	
 	
-	@Column(name = "currentYear", unique = false, nullable = false)
-	private Integer currentYear;
+	@Column(name = "paidYear", unique = false, nullable = false)
+	private Integer paidYear;
 	
 	//@JsonFormat(pattern = "dd/MM")
 	//@JsonSerialize(using = DateSerializer.class)
@@ -99,20 +99,20 @@ public class Client {
 	
 
 
-	public Integer getcurrentYear() {
-		return currentYear;
+	public Integer getpaidYear() {
+		return paidYear;
 	}
 
 
-	public void setcurrentYear(Integer currentYear) {
-		this.currentYear = currentYear;
+	public void setpaidYear(Integer paidYear) {
+		this.paidYear = paidYear;
 	}
 
 
 	@Override
 	public String toString() {
 		return "Client [id=" + id + ", name=" + name + ", numero=" + numero + ", datePagament=" + datePagament
-				+ ", lastMouthPaid=" + lastMouthPaid + ", yearOfEnrollment=" + currentYear + "]";
+				+ ", lastMouthPaid=" + lastMouthPaid + ", yearOfEnrollment=" + paidYear + "]";
 	}
 
 
