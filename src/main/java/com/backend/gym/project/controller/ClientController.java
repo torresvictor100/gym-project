@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.backend.gym.project.entity.Client;
+import com.backend.gym.project.entity.ClientId;
 import com.backend.gym.project.service.ClientService;
 
 import io.swagger.annotations.ApiOperation;
@@ -90,6 +91,50 @@ public class ClientController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
+	
+	
+	@ApiOperation(value = "subscriptionReactivation a client")
+	@ApiResponses({ @ApiResponse(code = 200, message = "OK"), @ApiResponse(code = 400, message = "Bad Request"),
+			@ApiResponse(code = 404, message = "Not Found") })
+	@PutMapping(path = "subscriptionReactivation/{client_id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseStatus(HttpStatus.OK)
+	public ResponseEntity<Client> subscriptionReactivation(@PathVariable(name = "client_id") Long id,
+			@RequestBody Client client) {
+		client.setId(id);
+		try {
+			client = clientService.subscriptionReactivation(client);
+			if (client == null) {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			} else {
+				return new ResponseEntity<>(client, HttpStatus.OK);
+			}
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@ApiOperation(value = "paymentMonth a client")
+	@ApiResponses({ @ApiResponse(code = 200, message = "OK"), @ApiResponse(code = 400, message = "Bad Request"),
+			@ApiResponse(code = 404, message = "Not Found") })
+	@PutMapping(path = "/paymentMonth", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseStatus(HttpStatus.OK)
+	public ResponseEntity<Client> paymentMonth(@RequestBody ClientId clientId) {
+		
+		
+		try {
+			Client client = clientService.paymentMonth(clientId.getId());
+			
+			
+			if (client == null) {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			} else {
+				return new ResponseEntity<>(client, HttpStatus.OK);
+			}
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
+	
 	
 	@ApiOperation(value = "Delete a client")
 	@ApiResponses({ @ApiResponse(code = 204, message = "No Content") })

@@ -126,8 +126,9 @@ public class ClientService {
 			int month = dataCal.get((Calendar.MONTH));
 			int year = dataCal.get(Calendar.YEAR);
 			
-			client.setLastMouthPaid(month);
+			client.setLastMouthPaid(month + 1);
 			client.setpaidYear(year);
+		
 			
 			return clientRepository.save(client);
 		} else {
