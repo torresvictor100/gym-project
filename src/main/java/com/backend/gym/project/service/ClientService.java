@@ -1,5 +1,8 @@
 package com.backend.gym.project.service;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -29,15 +32,107 @@ public class ClientService {
 		return clientRepository.findByName(name).orElse(null);
 	}
 	
-	public Client save(Client client) {
+	public Client save(Client client)  {
+				
 		client.setId(null);
+		Date data = new Date();
+		GregorianCalendar dataCal = new GregorianCalendar();
+		dataCal.setTime(data);
+		int month = dataCal.get((Calendar.MONTH));
+		int year = dataCal.get(Calendar.YEAR);
+		if(month == 12) {
+			client.setLastMouthPaid(0);
+			client.setcurrentYear(year+1);
+		}else {
+			client.setLastMouthPaid(month + 1);
+			client.setcurrentYear(year);
+		}
+		
+		
+		
+		
 		return clientRepository.save(client);
 	}
+	
+	
+	public String monthlyFee(Long id) {
+		
+		Date data = new Date();
+		GregorianCalendar dataCal = new GregorianCalendar();
+		dataCal.setTime(data);
+		int currentDay = dataCal.get((Calendar.DAY_OF_MONTH));
+		int currentMonth = dataCal.get((Calendar.MONTH));
+		int currentYear = dataCal.get(Calendar.YEAR);
+		
+		
+		Client client = clientRepository.findById(id).orElse(null);
+		String status ="";
+		
+		if (id != null && clientRepository.existsById(id)) {
+			
+			
+			
+			return status;
+		} else {
+			return "usuario não emcontrado";
+		}
+	}
+	
+	public Client paymentMonth(Long id) {
+		
+		Client client = clientRepository.findById(id).orElse(null);
+		
+		if (id != null && clientRepository.existsById(id)) {
+			
+			if(client.getLastMouthPaid() == 11) {
+				client.setLastMouthPaid(0);
+				client.setcurrentYear(client.getcurrentYear() +1);
+			}else {
+				client.setLastMouthPaid(client.getLastMouthPaid()+1);
+			}				
+			return clientRepository.save(client);
+		} else {
+			return null;
+		}
+		
+	}
+	
+	public Client subscriptionReactivation(Client client) {
+		Long id = client.getId();
+		
+		if (id != null && clientRepository.existsById(id)) {
+			
+			Date data = new Date();
+			GregorianCalendar dataCal = new GregorianCalendar();
+			dataCal.setTime(data);
+			int month = dataCal.get((Calendar.MONTH));
+			int year = dataCal.get(Calendar.YEAR);
+			
+			client.setLastMouthPaid(month);
+			client.setcurrentYear(year);
+			
+			return clientRepository.save(client);
+		} else {
+			
+			return null;	
+		}
+	}
+	
+	
 	
 	public Client update(Client client) {
 		Long id = client.getId();
 		if (id != null && clientRepository.existsById(id)) {
-			return client;
+			
+			Client clientBeforeUpdate = clientRepository.findById(id).orElse(null); 
+			
+			int month = clientBeforeUpdate.getLastMouthPaid();
+			int year = clientBeforeUpdate.getcurrentYear();
+			
+			client.setLastMouthPaid(month);
+			client.setcurrentYear(year);
+			
+			return clientRepository.save(client);
 		} else {
 			return null;
 		}

@@ -1,8 +1,5 @@
 package com.backend.gym.project.service;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -37,21 +34,21 @@ public class ClientServiceTest {
 	}
 	
 	@Test
-	public void save() throws ParseException {
+	public void save()  {
 		
-		SimpleDateFormat formato = new SimpleDateFormat("dd/MM"); 
-		Date dataFormatada = formato.parse("11/12");
-		
-		Client client = new Client();
+					
+			Client client = new Client();
 
-		client.setId(null);
-		client.setName("test");
-		client.setNumero("8762-9587");
-		client.setPaymentDate(dataFormatada);
+			client.setId(null);
+			client.setId(8L);
+			client.setName("test");
+			client.setNumero("8762-9587");
+			client.setDatePagament(10);
+			
+			client = clientService.save(client);
+			
+			System.out.println(client);
 		
-		
-		client = clientService.save(client);
-		System.out.println(client);
 	}
 	
 	@Test
@@ -63,16 +60,36 @@ public class ClientServiceTest {
 	}
 	
 	@Test
-	public void update() throws ParseException {
-		
-		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); 
-		Date dataFormatada = formato.parse("11/12/2020");
-		
+	public void paymentMonth() {
+		clientService.paymentMonth(1L);
+		Client client = clientService.findById(1L);
+		System.out.println(client);
+	}
+	
+	
+	@Test
+	public void subscriptionReactivation() {
 		Client client = new Client();
-		client.setId(1L);
+		client.setId(10L);
 		client.setName("test");
 		client.setNumero("8762-9587");
-		client.setPaymentDate(dataFormatada);
+		client.setDatePagament(20);
+		client.setLastMouthPaid(10);
+		
+		client = clientService.subscriptionReactivation(client);
+		System.out.println(client);
+	}
+	
+	@Test
+	public void update(){
+		
+		
+		Client client = new Client();
+		client.setId(10L);
+		client.setName("test");
+		client.setNumero("8762-9587");
+		client.setDatePagament(20);
+		client.setLastMouthPaid(10);
 		
 		client = clientService.update(client);
 		System.out.println(client);

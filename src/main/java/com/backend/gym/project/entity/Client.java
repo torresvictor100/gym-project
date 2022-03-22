@@ -1,22 +1,15 @@
 package com.backend.gym.project.entity;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.deser.std.DateDeserializers;
-import com.fasterxml.jackson.databind.ser.std.DateSerializer;
 
 @Entity
 @Table(name = "client")
@@ -34,13 +27,24 @@ public class Client {
 	@Column(name = "numero", unique = false, nullable = false)
 	private String numero;
 	
+	@Column(name = "datepagament", unique = false, nullable = false)
+	@Max(value=20)
+	@Min(value=1)
+	private Integer datePagament;
 	
-	@JsonFormat(pattern = "dd/MM")
-	@JsonSerialize(using = DateSerializer.class)
-	@JsonDeserialize(using = DateDeserializers.DateDeserializer.class)
-	@Temporal(TemporalType.TIME)
-	@Column(name = "paymentdate", nullable = false)
-	private Date paymentDate;
+	@Column(name = "lastmouthpaid", unique = false, nullable = false)
+	private Integer lastMouthPaid;
+	
+	
+	@Column(name = "currentYear", unique = false, nullable = false)
+	private Integer currentYear;
+	
+	//@JsonFormat(pattern = "dd/MM")
+	//@JsonSerialize(using = DateSerializer.class)
+	//@JsonDeserialize(using = DateDeserializers.DateDeserializer.class)
+	//@Temporal(TemporalType.TIME)
+	//@Column(name = "paymentdate", nullable = false)
+	//private Date paymentDate;
 
 
 	public Long getId() {
@@ -73,20 +77,48 @@ public class Client {
 	}
 
 
-	public Date getPaymentDate() {
-		return paymentDate;
+	public Integer getDatePagament() {
+		return datePagament;
 	}
 
 
-	public void setPaymentDate(Date paymentDate) {
-		this.paymentDate = paymentDate;
+	public void setDatePagament(Integer datePagament) {
+		this.datePagament = datePagament;
+	}
+
+
+	public Integer getLastMouthPaid() {
+		return lastMouthPaid;
+	}
+
+
+	public void setLastMouthPaid(Integer lastMouthPaid) {
+		this.lastMouthPaid = lastMouthPaid;
+	}
+	
+	
+
+
+	public Integer getcurrentYear() {
+		return currentYear;
+	}
+
+
+	public void setcurrentYear(Integer currentYear) {
+		this.currentYear = currentYear;
 	}
 
 
 	@Override
 	public String toString() {
-		return "Client [id=" + id + ", name=" + name + ", numero=" + numero + ", paymentDate=" + paymentDate + "]";
+		return "Client [id=" + id + ", name=" + name + ", numero=" + numero + ", datePagament=" + datePagament
+				+ ", lastMouthPaid=" + lastMouthPaid + ", yearOfEnrollment=" + currentYear + "]";
 	}
+
+
+	
+
+	
 	
 	
 	
