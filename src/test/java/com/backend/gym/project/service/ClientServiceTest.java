@@ -53,9 +53,10 @@ public class ClientServiceTest {
 	@Test
 	public void monthlyFee() {
 		
-		System.out.println(clientService.findById(1L));
 		
-		System.out.println(clientService.monthlyFee(1L));
+		
+		System.out.println(clientService.monthlyFee(7L));
+		System.out.println(clientService.findById(7L));
 	}
 	
 	@Test
@@ -68,8 +69,8 @@ public class ClientServiceTest {
 	
 	@Test
 	public void paymentMonth() {
-		clientService.paymentMonth(10L);
-		Client client = clientService.findById(10L);
+		clientService.paymentMonth(7L);
+		Client client = clientService.findById(7L);
 		System.out.println(client);
 	}
 	

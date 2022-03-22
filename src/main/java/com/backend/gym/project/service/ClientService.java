@@ -40,12 +40,14 @@ public class ClientService {
 		dataCal.setTime(data);
 		int month = dataCal.get((Calendar.MONTH));
 		int year = dataCal.get(Calendar.YEAR);
-		if(month == 12) {
+		if(month == 11) {
 			client.setLastMouthPaid(0);
 			client.setpaidYear(year+1);
+			client.setPay(true);
 		}else {
 			client.setLastMouthPaid(month + 1);
 			client.setpaidYear(year);
+			client.setPay(true);
 		}
 		
 		
@@ -55,7 +57,7 @@ public class ClientService {
 	}
 	
 	
-	public String monthlyFee(Long id) {
+	public Client monthlyFee(Long id) {
 		
 		Date data = new Date();
 		GregorianCalendar dataCal = new GregorianCalendar();
@@ -66,33 +68,31 @@ public class ClientService {
 		
 		
 		Client client = clientRepository.findById(id).orElse(null);
-		String status ="";
 		
 		if (id != null && clientRepository.existsById(id)) {
 			
 			if(currentYear < client.getpaidYear()) {
 				
-				status = "estar pago";
+				client.setPay(true);
 				
 			}else if(currentMonth < client.getLastMouthPaid() && currentYear <= client.getpaidYear()) {
 				
-				status = "estar pago";
+				client.setPay(true);
 				
 			}else if (currentDay <= client.getDatePagament() 
 					&& currentMonth <= client.getLastMouthPaid() 
 					&& currentYear <= client.getpaidYear()) {
 				
-				status = "estar pago";
+				client.setPay(true);
 				
 			}else {
 				
-				status = "não pagou esse mês";
+				client.setPay(false);
 			}
 			
-			
-			return status;
+			return clientRepository.save(client);
 		} else {
-			return "usuario não emcontrado";
+			return null;
 		}
 	}
 	

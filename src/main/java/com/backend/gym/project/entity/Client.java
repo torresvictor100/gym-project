@@ -39,12 +39,8 @@ public class Client {
 	@Column(name = "paidYear", unique = false, nullable = false)
 	private Integer paidYear;
 	
-	//@JsonFormat(pattern = "dd/MM")
-	//@JsonSerialize(using = DateSerializer.class)
-	//@JsonDeserialize(using = DateDeserializers.DateDeserializer.class)
-	//@Temporal(TemporalType.TIME)
-	//@Column(name = "paymentdate", nullable = false)
-	//private Date paymentDate;
+	@Column(name = "pay")
+	private Boolean pay;
 
 
 	public Long getId() {
@@ -109,12 +105,24 @@ public class Client {
 	}
 
 
+	public Boolean getPay() {
+		return pay;
+	}
+
+
+	public void setPay(Boolean pay) {
+		this.pay = pay;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Client [id=" + id + ", name=" + name + ", numero=" + numero + ", datePagament=" + datePagament
-				+ ", lastMouthPaid=" + lastMouthPaid + ", yearOfEnrollment=" + paidYear + "]";
+				+ ", lastMouthPaid=" + lastMouthPaid + ", paidYear=" + paidYear + ", pay=" + pay + "]";
 	}
 
+
+	
 
 	
 
