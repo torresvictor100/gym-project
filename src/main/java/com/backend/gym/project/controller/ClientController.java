@@ -96,13 +96,11 @@ public class ClientController {
 	@ApiOperation(value = "subscriptionReactivation a client")
 	@ApiResponses({ @ApiResponse(code = 200, message = "OK"), @ApiResponse(code = 400, message = "Bad Request"),
 			@ApiResponse(code = 404, message = "Not Found") })
-	@PutMapping(path = "subscriptionReactivation/{client_id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(path = "/subscriptionReactivation", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.OK)
-	public ResponseEntity<Client> subscriptionReactivation(@PathVariable(name = "client_id") Long id,
-			@RequestBody Client client) {
-		client.setId(id);
+	public ResponseEntity<Client> subscriptionReactivation(@RequestBody ClientId clientId) {
 		try {
-			client = clientService.subscriptionReactivation(client);
+			Client client = clientService.subscriptionReactivation(clientId.getId());
 			if (client == null) {
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			} else {
@@ -116,7 +114,7 @@ public class ClientController {
 	@ApiOperation(value = "paymentMonth a client")
 	@ApiResponses({ @ApiResponse(code = 200, message = "OK"), @ApiResponse(code = 400, message = "Bad Request"),
 			@ApiResponse(code = 404, message = "Not Found") })
-	@PutMapping(path = "/paymentMonth", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(path = "/paymentmonth", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<Client> paymentMonth(@RequestBody ClientId clientId) {
 		

@@ -62,10 +62,10 @@ public class ClientService {
 		Date data = new Date();
 		GregorianCalendar dataCal = new GregorianCalendar();
 		dataCal.setTime(data);
-		int currentDay = dataCal.get((Calendar.DAY_OF_MONTH));
-		int currentMonth = dataCal.get((Calendar.MONTH));
+		int currentDay = dataCal.get(Calendar.DAY_OF_MONTH);
+		int currentMonth = dataCal.get(Calendar.MONTH);
 		int currentYear = dataCal.get(Calendar.YEAR);
-		
+
 		
 		Client client = clientRepository.findById(id).orElse(null);
 		
@@ -78,8 +78,8 @@ public class ClientService {
 			}else if(currentMonth < client.getLastMouthPaid() && currentYear <= client.getpaidYear()) {
 				
 				client.setPay(true);
-				
-			}else if (currentDay <= client.getDatePagament() 
+											// +10 dias 
+			}else if (currentDay <= (client.getDatePagament()+10) 
 					&& currentMonth <= client.getLastMouthPaid() 
 					&& currentYear <= client.getpaidYear()) {
 				
@@ -115,8 +115,9 @@ public class ClientService {
 		
 	}
 	
-	public Client subscriptionReactivation(Client client) {
-		Long id = client.getId();
+	public Client subscriptionReactivation(Long id) {
+		
+		Client client = clientRepository.findById(id).orElse(null);
 		
 		if (id != null && clientRepository.existsById(id)) {
 			
