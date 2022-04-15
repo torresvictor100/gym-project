@@ -84,7 +84,7 @@ public class ClientServiceTest {
 		client.setDatePagament(20);
 		client.setLastMouthPaid(10);
 		
-		client = clientService.subscriptionReactivation(client);
+		client = clientService.subscriptionReactivation(client.getId());
 		System.out.println(client);
 	}
 	
