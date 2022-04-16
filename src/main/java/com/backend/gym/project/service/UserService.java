@@ -38,8 +38,6 @@ public class UserService {
 		
 		user.setId(null);
 		user.setSenha(bCryptPasswordEncoder.encode(user.getSenha()));
-		System.out.println(user + "1235");
-		System.out.println("to sendo chamado");
 		return userRepository.save(user);
 	}
 	public User update(User user) {
