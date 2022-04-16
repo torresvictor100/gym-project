@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
@@ -19,6 +20,7 @@ public class User {
 	@Column(name = "userName", unique = true, nullable = true)
 	private String userName;
 	
+	@JsonIgnore
 	@Column(name = "senha", unique = true, nullable = true)
 	private String senha;
 
