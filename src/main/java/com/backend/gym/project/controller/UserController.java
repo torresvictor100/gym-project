@@ -24,7 +24,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @RestController
-@RequestMapping(path = "/users")
+@RequestMapping(path = "/user")
 public class UserController {
 	
 	private final UserService userService;

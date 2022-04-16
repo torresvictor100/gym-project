@@ -1,6 +1,5 @@
 package com.backend.gym.project.reposity;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;

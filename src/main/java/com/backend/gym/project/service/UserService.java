@@ -2,6 +2,8 @@ package com.backend.gym.project.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.backend.gym.project.entity.User;
@@ -10,6 +12,8 @@ import com.backend.gym.project.reposity.UserRepository;
 @Service
 public class UserService {
 	
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	private final UserRepository userRepository;
 	
@@ -31,10 +35,13 @@ public class UserService {
 	}
 	
 	public User save(User user)  {
+		
 		user.setId(null);
+		user.setSenha(bCryptPasswordEncoder.encode(user.getSenha()));
+		System.out.println(user + "1235");
+		System.out.println("to sendo chamado");
 		return userRepository.save(user);
 	}
-	
 	public User update(User user) {
 		return userRepository.save(user);
 	}

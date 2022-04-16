@@ -16,10 +16,19 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
+	private static final String[] PUBLIC_MATCHERS_POST = {
+			"/user",
+			
+	};
 	
 	private static final String[] PUBLIC_MATCHERS_GET = {
 			"/client/**",
-			"/client"	
+			"/client",
+			"/user"
+	};
+	private static final String[] PUBLIC_MATCHERS = {
+			"/swagger-ui/index.html/**",
+			"/swagger-ui/index.html**"
 	};
 	
 	@Override
@@ -27,6 +36,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		http.cors().and().csrf().disable();
 		http.authorizeHttpRequests()
 			.antMatchers(HttpMethod.GET ,PUBLIC_MATCHERS_GET).permitAll()
+			.antMatchers(HttpMethod.POST ,PUBLIC_MATCHERS_POST).permitAll()
+			.antMatchers(PUBLIC_MATCHERS).permitAll()
 			.anyRequest().authenticated();
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	}
@@ -37,6 +48,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
 		return source;
 	}
+	
+	
 	
 	@Bean
 	public BCryptPasswordEncoder bCryptPasswordEncoder(){
