@@ -21,9 +21,10 @@ public class User {
 	@Column(name = "userName", unique = true, nullable = true)
 	private String userName;
 	
-	//o fato de não esta jsonignore é uma falha de segurança grave 
-	@Column(name = "senha", nullable = true)
-	private String senha;
+	
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	@Column(name = "password", nullable = true)
+	private String password;
 	
 	public Long getId() {
 		return id;
@@ -41,17 +42,17 @@ public class User {
 		this.userName = userName;
 	}
 
-	public String getSenha() {
-		return senha;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setSenha(String senha) {
-		this.senha = senha;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", userName=" + userName + ", senha=" + senha + "]";
+		return "User [id=" + id + ", userName=" + userName + ", password=" + password + "]";
 	}
 	
 	
