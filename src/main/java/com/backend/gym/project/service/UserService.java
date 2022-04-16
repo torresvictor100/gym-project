@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.backend.gym.project.entity.Profile;
 import com.backend.gym.project.entity.User;
 import com.backend.gym.project.reposity.UserRepository;
 
@@ -37,6 +38,7 @@ public class UserService {
 	public User save(User user)  {
 		
 		user.setId(null);
+		user.addProfile(Profile.ADMIN);
 		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 		return userRepository.save(user);
 	}
